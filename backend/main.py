@@ -1,13 +1,12 @@
-from config import Settings
-from functools import lru_cache
+from fastapi import FastAPI
 
-@lru_cache
-def get_settings():
-    return Settings()
+from routers import export, reddit
 
-def main():
-    print("Hello from orangenectar!")
-
+app = FastAPI(title="OrangeNectar")
+app.include_router(reddit.router, prefix="/reddit", tags=["reddit"])
+app.include_router(export.router, tags=["export"])
 
 if __name__ == "__main__":
-    main()
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
