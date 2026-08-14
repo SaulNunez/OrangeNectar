@@ -1,121 +1,127 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Group,
+  SimpleGrid,
+  Stack,
+  Text,
+  Title,
+  Tooltip,
+} from '@mantine/core'
 
-function App() {
-  const [count, setCount] = useState(0)
+function RedditLoginButton({ size = 'md' }: { size?: 'md' | 'lg' }) {
+  // TODO: wire up to backend Reddit OAuth flow once it exists.
+  // Should redirect the user to Reddit's authorization page.
+  const handleRedditLogin = () => {
+    console.log('TODO: redirect to Reddit OAuth login')
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <Tooltip label="Reddit login coming soon" withArrow>
+      <Button size={size} color="orange" radius="xl" onClick={handleRedditLogin}>
+        Log in with Reddit
+      </Button>
+    </Tooltip>
+  )
+}
 
-      <div className="ticks"></div>
+const features = [
+  {
+    title: 'One-click export',
+    description:
+      'Grab everything you’ve saved on Reddit and download it in a single request.',
+  },
+  {
+    title: 'CSV today, more formats soon',
+    description:
+      'Start with a clean CSV file, with JSON and other formats on the way.',
+  },
+  {
+    title: 'Nothing stored, nothing tracked',
+    description:
+      'Your saved posts pass straight through to your download — we don’t keep a copy.',
+  },
+]
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+function App() {
+  return (
+    <Box style={{ minHeight: '100svh', display: 'flex', flexDirection: 'column' }}>
+      <Box
+        component="header"
+        style={(theme) => ({
+          borderBottom: `1px solid ${theme.colors.gray[2]}`,
+        })}
+      >
+        <Container size="lg" py="md">
+          <Group justify="space-between">
+            <Group gap="xs">
+              <Text size="xl" fw={700}>
+                🍊 OrangeNectar
+              </Text>
+            </Group>
+            <RedditLoginButton />
+          </Group>
+        </Container>
+      </Box>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <Box component="main" style={{ flexGrow: 1 }}>
+        <Container size="sm" py={80}>
+          <Stack align="center" gap="lg" ta="center">
+            <Title order={1} fz={{ base: 36, sm: 48 }} fw={800}>
+              Take your Reddit{' '}
+              <Text
+                component="span"
+                inherit
+                variant="gradient"
+                gradient={{ from: 'orange', to: 'yellow' }}
+              >
+                Saved
+              </Text>{' '}
+              posts with you
+            </Title>
+            <Text size="lg" c="dimmed" maw={520}>
+              Connect your Reddit account and export everything you&apos;ve
+              saved &mdash; posts and comments &mdash; into a CSV you can
+              actually use.
+            </Text>
+            <RedditLoginButton size="lg" />
+            <Text size="sm" c="dimmed">
+              We only ask for read access to your saved items.
+            </Text>
+          </Stack>
+        </Container>
+
+        <Container size="lg" pb={80}>
+          <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg">
+            {features.map((feature) => (
+              <Card key={feature.title} padding="lg" radius="md" withBorder>
+                <Text fw={600} mb={4}>
+                  {feature.title}
+                </Text>
+                <Text size="sm" c="dimmed">
+                  {feature.description}
+                </Text>
+              </Card>
+            ))}
+          </SimpleGrid>
+        </Container>
+      </Box>
+
+      <Box
+        component="footer"
+        style={(theme) => ({
+          borderTop: `1px solid ${theme.colors.gray[2]}`,
+        })}
+      >
+        <Container size="lg" py="md">
+          <Text size="sm" c="dimmed" ta="center">
+            OrangeNectar isn&apos;t affiliated with Reddit, Inc.
+          </Text>
+        </Container>
+      </Box>
+    </Box>
   )
 }
 
