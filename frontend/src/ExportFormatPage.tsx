@@ -10,7 +10,7 @@ import {
   Title,
 } from '@mantine/core'
 
-type ExportFormat = 'csv' | 'html'
+type ExportFormat = 'csv' | 'html' | 'xlsx'
 
 const formatOptions: { value: ExportFormat; label: string; description: string }[] = [
   {
@@ -22,6 +22,11 @@ const formatOptions: { value: ExportFormat; label: string; description: string }
     value: 'html',
     label: 'HTML',
     description: 'A single browsable page you can open straight in your browser.',
+  },
+  {
+    value: 'xlsx',
+    label: 'XLSX',
+    description: 'An Excel workbook, formatted and ready to filter or sort.',
   },
 ]
 
