@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Saved Reddit Posts</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1a1a1b; background: #f6f7f8; }
+  h1 { margin-bottom: 0.25rem; }
+  .meta { color: #7c7c7c; font-size: 0.85rem; margin-bottom: 2rem; }
+  section { margin-bottom: 3rem; }
+  section h2 { border-bottom: 2px solid #ff4500; padding-bottom: 0.5rem; }
+  .card { background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+  .card .subreddit { color: #ff4500; font-weight: 600; font-size: 0.85rem; }
+  .card .title { font-size: 1.1rem; font-weight: 600; margin: 0.35rem 0; }
+  .card .byline { color: #7c7c7c; font-size: 0.8rem; margin-bottom: 0.5rem; }
+  .card img, .card video { max-width: 100%; border-radius: 6px; margin-top: 0.5rem; display: block; }
+  .card .body { white-space: pre-wrap; font-size: 0.95rem; }
+  .card a { color: #0079d3; text-decoration: none; }
+  .empty { color: #7c7c7c; font-style: italic; }
+</style>
+</head>
+<body>
+  <h1>Saved Reddit Posts</h1>
+  <p class="meta">{{ submissions|length }} posts &middot; {{ comments|length }} comments</p>
+
+  <section>
+    <h2>Posts</h2>
+    {% if submissions %}
+      {% for submission in submissions %}
+        <div class="card">
+          <div class="subreddit">r/{{ submission.subreddit }}</div>
+          <div class="title">
+            <a href="https://reddit.com{{ submission.permalink }}" target="_blank" rel="noopener">{{ submission.title }}</a>
+          </div>
+          <div class="byline">u/{{ submission.author }}</div>
+          {% if submission.id in submission_images %}
+            <img src="{{ submission_images[submission.id] }}" alt="{{ submission.title }}">
+          {% endif %}
+          {% if submission.id in submission_videos %}
+            <video src="{{ submission_videos[submission.id] }}" controls preload="metadata"></video>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="empty">No posts to display.</p>
+    {% endif %}
+  </section>
+
+  <section>
+    <h2>Comments</h2>
+    {% if comments %}
+      {% for comment in comments %}
+        <div class="card">
+          <div class="subreddit">r/{{ comment.subreddit }}</div>
+          <div class="byline">u/{{ comment.author }} &middot; score {{ comment.score }}</div>
+          <div class="body">{{ comment.body }}</div>
+          <div class="byline"><a href="https://reddit.com{{ comment.permalink }}" target="_blank" rel="noopener">View on Reddit</a></div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="empty">No comments to display.</p>
+    {% endif %}
+  </section>
+</body>
+</html>

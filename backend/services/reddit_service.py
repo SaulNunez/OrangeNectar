@@ -33,6 +33,10 @@ class RedditService:
                     score=item.score,
                 ))
             elif isinstance(item, praw.models.Submission):
+                video_url = None
+                if item.is_video and item.media:
+                    video_url = item.media.get("reddit_video", {}).get("fallback_url")
+
                 saved_items.append(Submission(
                     author=str(item.author),
                     created_utc=item.created_utc,
@@ -41,5 +45,6 @@ class RedditService:
                     subreddit=str(item.subreddit),
                     title=item.title,
                     url=item.url,
+                    video_url=video_url,
                 ))
         return saved_items

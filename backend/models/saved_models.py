@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 
@@ -25,3 +27,4 @@ class Submission(BaseModel):
     subreddit: str
     title: str
     url: str
+    video_url: Optional[str] = None
