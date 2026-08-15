@@ -14,3 +14,14 @@ services:
     depends_on:
       - backend
     restart: unless-stopped
+
+  redis:
+    image: redis@sha256:344e3945a0b431c8ff1eecd58c5573538126bd756f02fc7e218ddf1fc2546366
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+volumes:
+  redis-data:
