@@ -8,22 +8,20 @@ import {
   Stack,
   Text,
   Title,
-  Tooltip,
 } from '@mantine/core'
+import { REDDIT_LOGIN_URL } from './api'
 
 function RedditLoginButton({ size = 'md' }: { size?: 'md' | 'lg' }) {
-  // TODO: wire up to backend Reddit OAuth flow once it exists.
-  // Should redirect the user to Reddit's authorization page.
   const handleRedditLogin = () => {
-    console.log('TODO: redirect to Reddit OAuth login')
+    // Full browser navigation, not a fetch: the backend responds with a
+    // redirect to Reddit's authorization page that the browser must follow.
+    window.location.href = REDDIT_LOGIN_URL
   }
 
   return (
-    <Tooltip label="Reddit login coming soon" withArrow>
-      <Button size={size} color="orange" radius="xl" onClick={handleRedditLogin}>
-        Log in with Reddit
-      </Button>
-    </Tooltip>
+    <Button size={size} color="orange" radius="xl" onClick={handleRedditLogin}>
+      Log in with Reddit
+    </Button>
   )
 }
 
