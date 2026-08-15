@@ -1,15 +1,23 @@
-from typing import List, Union
+from typing import List, Optional, Union
 
 import praw
+import redis
 
 from models.saved_models import Comment, Submission
 
 
 class RedditService:
-    def __init__(self, client_id: str, client_secret: str, user_agent: str):
+    def __init__(
+        self,
+        client_id: str,
+        client_secret: str,
+        user_agent: str,
+        redis_client: Optional[redis.Redis] = None,
+    ):
         self.client_id = client_id
         self.client_secret = client_secret
         self.user_agent = user_agent
+        self.redis_client = redis_client
         self.reddit = praw.Reddit(
             client_id=client_id,
             client_secret=client_secret,
