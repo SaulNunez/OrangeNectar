@@ -1,25 +1,28 @@
 from typing import List, Union
 
-import redis
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 
 from config import Settings, get_settings
 from models.saved_models import Comment, Submission
-from redis_client import get_redis_client
+from redis_client import get_async_redis_client
 from services.reddit_service import RedditService
+from session import get_session_access_token
 
 router = APIRouter()
 
 
-def get_reddit_service(
+async def get_reddit_service(
+    request: Request,
     settings: Settings = Depends(get_settings),
-    redis_client: redis.Redis = Depends(get_redis_client),
+    redis_client=Depends(get_async_redis_client),
 ) -> RedditService:
+    access_token, expires_in = await get_session_access_token(request, redis_client)
     return RedditService(
         client_id=settings.reddit_client_id,
         client_secret=settings.reddit_client_secret,
         user_agent=settings.reddit_user_agent,
-        redis_client=redis_client,
+        access_token=access_token,
+        expires_in=expires_in,
     )
 
 

@@ -7,6 +7,9 @@ class Settings(BaseSettings):
     reddit_client_id: str
     reddit_client_secret: str
     reddit_user_agent: str
+    reddit_redirect_uri: str
+
+    session_secret_key: str
 
     redis_url: str = "redis://localhost:6379/0"
 

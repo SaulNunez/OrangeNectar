@@ -1,9 +1,9 @@
-from typing import List, Optional, Union
+from typing import List, Union
 
 import praw
-import redis
 
 from models.saved_models import Comment, Submission
+from services.reddit_auth import build_reddit_from_access_token
 
 
 class RedditService:
@@ -12,16 +12,15 @@ class RedditService:
         client_id: str,
         client_secret: str,
         user_agent: str,
-        redis_client: Optional[redis.Redis] = None,
+        access_token: str,
+        expires_in: int,
     ):
-        self.client_id = client_id
-        self.client_secret = client_secret
-        self.user_agent = user_agent
-        self.redis_client = redis_client
-        self.reddit = praw.Reddit(
+        self.reddit = build_reddit_from_access_token(
             client_id=client_id,
             client_secret=client_secret,
-            user_agent=user_agent
+            user_agent=user_agent,
+            access_token=access_token,
+            expires_in=expires_in,
         )
 
     def fetch_saved_posts(self) -> List[Union[Comment, Submission]]:
