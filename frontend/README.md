@@ -71,3 +71,18 @@ export default defineConfig([
   },
 ])
 ```
+
+## Translations (LinguiJS)
+
+The UI is available in English (source language) and Spanish. Strings are marked with Lingui macros:
+
+- `<Trans>…</Trans>` from `@lingui/react/macro` for JSX text.
+- `` t`…` `` from `useLingui()` (`@lingui/react/macro`) for strings inside components (props, labels).
+- `` msg`…` `` from `@lingui/core/macro` for strings defined outside components; render them with `i18n._(descriptor)`.
+
+After adding or changing strings:
+
+1. Run `npm run extract` to update `src/locales/{en,es}/messages.po`.
+2. Fill in the empty `msgstr` entries in `src/locales/es/messages.po`.
+
+There's no compile step: `@lingui/vite-plugin` compiles the `.po` files when they are imported and transforms the macros natively. Locale setup lives in `src/i18n/index.ts`; to add a language, add it to `locales` there and in `lingui.config.ts`, then run `npm run extract`.

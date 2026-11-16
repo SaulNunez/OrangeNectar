@@ -9,29 +9,39 @@ import {
   Text,
   Title,
 } from '@mantine/core'
+import { msg } from '@lingui/core/macro'
+import type { MessageDescriptor } from '@lingui/core'
+import { Trans, useLingui } from '@lingui/react/macro'
+import LanguageSwitcher from './LanguageSwitcher'
 
 type ExportFormat = 'csv' | 'html' | 'xlsx'
 
-const formatOptions: { value: ExportFormat; label: string; description: string }[] = [
+const formatOptions: {
+  value: ExportFormat
+  label: string
+  description: MessageDescriptor
+}[] = [
   {
     value: 'csv',
     label: 'CSV',
-    description: 'A plain spreadsheet file — opens in Excel, Sheets, or Numbers.',
+    description: msg`A plain spreadsheet file — opens in Excel, Sheets, or Numbers.`,
   },
   {
     value: 'html',
     label: 'HTML',
-    description: 'A single browsable page you can open straight in your browser.',
+    description: msg`A single browsable page you can open straight in your browser.`,
   },
   {
     value: 'xlsx',
     label: 'XLSX',
-    description: 'An Excel workbook, formatted and ready to filter or sort.',
+    description: msg`An Excel workbook, formatted and ready to filter or sort.`,
   },
 ]
 
 function ExportFormatPage() {
+  const { i18n } = useLingui()
   const [format, setFormat] = useState<ExportFormat>('csv')
+  const formatLabel = format.toUpperCase()
 
   // TODO: call the backend /export endpoint with the selected format
   // once the Reddit OAuth flow supplies the user's saved posts.
@@ -48,9 +58,12 @@ function ExportFormatPage() {
         })}
       >
         <Container size="lg" py="md">
-          <Text size="xl" fw={700}>
-            🍊 OrangeNectar
-          </Text>
+          <Group justify="space-between">
+            <Text size="xl" fw={700}>
+              🍊 OrangeNectar
+            </Text>
+            <LanguageSwitcher />
+          </Group>
         </Container>
       </Box>
 
@@ -58,9 +71,14 @@ function ExportFormatPage() {
         <Container size="xs" py={80}>
           <Stack gap="xl">
             <Stack gap={4}>
-              <Title order={2}>Choose an export format</Title>
+              <Title order={2}>
+                <Trans>Choose an export format</Trans>
+              </Title>
               <Text c="dimmed">
-                Pick how you&apos;d like your saved posts and comments packaged up.
+                <Trans>
+                  Pick how you&apos;d like your saved posts and comments
+                  packaged up.
+                </Trans>
               </Text>
             </Stack>
 
@@ -76,7 +94,7 @@ function ExportFormatPage() {
                       <div>
                         <Text fw={600}>{option.label}</Text>
                         <Text size="sm" c="dimmed">
-                          {option.description}
+                          {i18n._(option.description)}
                         </Text>
                       </div>
                     </Group>
@@ -86,7 +104,7 @@ function ExportFormatPage() {
             </Radio.Group>
 
             <Button color="orange" radius="xl" onClick={handleExport}>
-              Export as {format.toUpperCase()}
+              <Trans>Export as {formatLabel}</Trans>
             </Button>
           </Stack>
         </Container>
