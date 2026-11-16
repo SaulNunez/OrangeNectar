@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-11-16 02:21+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: es\n"
+
+#: src/ExportFormatPage.tsx:27
+msgid "A plain spreadsheet file — opens in Excel, Sheets, or Numbers."
+msgstr "Un archivo de hoja de cálculo sencillo: se abre en Excel, Sheets o Numbers."
+
+#: src/ExportFormatPage.tsx:32
+msgid "A single browsable page you can open straight in your browser."
+msgstr "Una sola página navegable que puedes abrir directamente en tu navegador."
+
+#: src/ExportFormatPage.tsx:37
+msgid "An Excel workbook, formatted and ready to filter or sort."
+msgstr "Un libro de Excel, con formato y listo para filtrar u ordenar."
+
+#: src/ExportFormatPage.tsx:75
+msgid "Choose an export format"
+msgstr "Elige un formato de exportación"
+
+#: src/App.tsx:95
+msgid "Connect your Reddit account and export everything you've saved — posts and comments — into a CSV you can actually use."
+msgstr "Conecta tu cuenta de Reddit y exporta todo lo que has guardado (publicaciones y comentarios) a un CSV que realmente puedas usar."
+
+#: src/App.tsx:41
+msgid "CSV today, more formats soon"
+msgstr "CSV hoy, más formatos pronto"
+
+#: src/ExportFormatPage.tsx:107
+msgid "Export as {formatLabel}"
+msgstr "Exportar como {formatLabel}"
+
+#: src/App.tsx:37
+msgid "Grab everything you’ve saved on Reddit and download it in a single request."
+msgstr "Reúne todo lo que has guardado en Reddit y descárgalo en una sola solicitud."
+
+#: src/LanguageSwitcher.tsx:12
+msgid "Language"
+msgstr "Idioma"
+
+#: src/App.tsx:26
+msgid "Log in with Reddit"
+msgstr "Iniciar sesión con Reddit"
+
+#: src/App.tsx:46
+msgid "Nothing stored, nothing tracked"
+msgstr "Nada almacenado, nada rastreado"
+
+#: src/App.tsx:36
+msgid "One-click export"
+msgstr "Exportación con un clic"
+
+#: src/App.tsx:132
+msgid "OrangeNectar isn't affiliated with Reddit, Inc."
+msgstr "OrangeNectar no está afiliado a Reddit, Inc."
+
+#: src/ExportFormatPage.tsx:78
+msgid "Pick how you'd like your saved posts and comments packaged up."
+msgstr "Elige cómo quieres empaquetar tus publicaciones y comentarios guardados."
+
+#: src/App.tsx:42
+msgid "Start with a clean CSV file, with JSON and other formats on the way."
+msgstr "Empieza con un archivo CSV limpio; JSON y otros formatos están en camino."
+
+#: src/App.tsx:81
+msgid "Take your Reddit <0>Saved</0> posts with you"
+msgstr "Llévate tus publicaciones <0>guardadas</0> de Reddit"
+
+#: src/App.tsx:103
+msgid "We only ask for read access to your saved items."
+msgstr "Solo pedimos acceso de lectura a tus elementos guardados."
+
+#: src/App.tsx:47
+msgid "Your saved posts pass straight through to your download — we don’t keep a copy."
+msgstr "Tus publicaciones guardadas pasan directamente a tu descarga: no guardamos ninguna copia."

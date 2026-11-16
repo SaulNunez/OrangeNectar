@@ -9,7 +9,10 @@ import {
   Text,
   Title,
 } from '@mantine/core'
+import { msg } from '@lingui/core/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { REDDIT_LOGIN_URL } from './api'
+import LanguageSwitcher from './LanguageSwitcher'
 
 function RedditLoginButton({ size = 'md' }: { size?: 'md' | 'lg' }) {
   const handleRedditLogin = () => {
@@ -20,30 +23,34 @@ function RedditLoginButton({ size = 'md' }: { size?: 'md' | 'lg' }) {
 
   return (
     <Button size={size} color="orange" radius="xl" onClick={handleRedditLogin}>
-      Log in with Reddit
+      <Trans>Log in with Reddit</Trans>
     </Button>
   )
 }
 
+// Defined with `msg` so they can live outside a component; they're translated
+// at render time with `i18n._()`.
 const features = [
   {
-    title: 'One-click export',
-    description:
-      'Grab everything you’ve saved on Reddit and download it in a single request.',
+    id: 'one-click',
+    title: msg`One-click export`,
+    description: msg`Grab everything you’ve saved on Reddit and download it in a single request.`,
   },
   {
-    title: 'CSV today, more formats soon',
-    description:
-      'Start with a clean CSV file, with JSON and other formats on the way.',
+    id: 'formats',
+    title: msg`CSV today, more formats soon`,
+    description: msg`Start with a clean CSV file, with JSON and other formats on the way.`,
   },
   {
-    title: 'Nothing stored, nothing tracked',
-    description:
-      'Your saved posts pass straight through to your download — we don’t keep a copy.',
+    id: 'privacy',
+    title: msg`Nothing stored, nothing tracked`,
+    description: msg`Your saved posts pass straight through to your download — we don’t keep a copy.`,
   },
 ]
 
 function App() {
+  const { i18n } = useLingui()
+
   return (
     <Box style={{ minHeight: '100svh', display: 'flex', flexDirection: 'column' }}>
       <Box
@@ -59,7 +66,10 @@ function App() {
                 🍊 OrangeNectar
               </Text>
             </Group>
-            <RedditLoginButton />
+            <Group gap="sm">
+              <LanguageSwitcher />
+              <RedditLoginButton />
+            </Group>
           </Group>
         </Container>
       </Box>
@@ -68,25 +78,29 @@ function App() {
         <Container size="sm" py={80}>
           <Stack align="center" gap="lg" ta="center">
             <Title order={1} fz={{ base: 36, sm: 48 }} fw={800}>
-              Take your Reddit{' '}
-              <Text
-                component="span"
-                inherit
-                variant="gradient"
-                gradient={{ from: 'orange', to: 'yellow' }}
-              >
-                Saved
-              </Text>{' '}
-              posts with you
+              <Trans>
+                Take your Reddit{' '}
+                <Text
+                  component="span"
+                  inherit
+                  variant="gradient"
+                  gradient={{ from: 'orange', to: 'yellow' }}
+                >
+                  Saved
+                </Text>{' '}
+                posts with you
+              </Trans>
             </Title>
             <Text size="lg" c="dimmed" maw={520}>
-              Connect your Reddit account and export everything you&apos;ve
-              saved &mdash; posts and comments &mdash; into a CSV you can
-              actually use.
+              <Trans>
+                Connect your Reddit account and export everything you&apos;ve
+                saved &mdash; posts and comments &mdash; into a CSV you can
+                actually use.
+              </Trans>
             </Text>
             <RedditLoginButton size="lg" />
             <Text size="sm" c="dimmed">
-              We only ask for read access to your saved items.
+              <Trans>We only ask for read access to your saved items.</Trans>
             </Text>
           </Stack>
         </Container>
@@ -94,12 +108,12 @@ function App() {
         <Container size="lg" pb={80}>
           <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg">
             {features.map((feature) => (
-              <Card key={feature.title} padding="lg" radius="md" withBorder>
+              <Card key={feature.id} padding="lg" radius="md" withBorder>
                 <Text fw={600} mb={4}>
-                  {feature.title}
+                  {i18n._(feature.title)}
                 </Text>
                 <Text size="sm" c="dimmed">
-                  {feature.description}
+                  {i18n._(feature.description)}
                 </Text>
               </Card>
             ))}
@@ -115,7 +129,7 @@ function App() {
       >
         <Container size="lg" py="md">
           <Text size="sm" c="dimmed" ta="center">
-            OrangeNectar isn&apos;t affiliated with Reddit, Inc.
+            <Trans>OrangeNectar isn&apos;t affiliated with Reddit, Inc.</Trans>
           </Text>
         </Container>
       </Box>

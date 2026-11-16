@@ -7,9 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "extract": "lingui extract --clean"
   },
   "dependencies": {
+    "@lingui/core": "^6.12.0",
+    "@lingui/react": "^6.12.0",
     "@mantine/core": "^9.5.1",
     "@mantine/hooks": "^9.5.1",
     "postcss-preset-mantine": "^1.18.0",
@@ -20,6 +23,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@lingui/cli": "^6.12.0",
+    "@lingui/vite-plugin": "^6.12.0",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
